@@ -3,6 +3,21 @@
 #include <vector>
 using namespace std;
 
+void PrintLCS(vector<vector<char>> b, string s1, int x1, int x2){
+    if (x1==0 or x2==0){
+        return;
+    }
+    if (b[x1-1][x2-1] == 'D'){
+        PrintLCS(b,s1,x1-1,x2-1);
+        cout << s1[x1-1];
+    } else if (b[x1-1][x2-1] == 'L'){
+        PrintLCS(b,s1,x1,x2-1);
+    } else{
+        PrintLCS(b,s1,x1-1,x2);
+    }
+    return;
+}
+
 int LCS(string s1, string s2, int x1, int x2){
     vector<vector<int>> c(x1+1, vector<int>(x2+1,0));
     vector<vector<char>> b(x2, vector<char>(x2,'U'));
@@ -18,11 +33,14 @@ int LCS(string s1, string s2, int x1, int x2){
                     b[i-1][j-1] = 'L';
                 } 
                 if ((c[i][j-1]==c[i-1][j])){
-                    b[i-1][j-1] = 'B';
+                    b[i-1][j-1] = 'L';
                 }
             }
         }
     }
+
+    PrintLCS(b,s1,x1,x2);
+    cout << endl;
     return c[x1][x2];
 }
 
