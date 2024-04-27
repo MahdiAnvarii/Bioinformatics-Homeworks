@@ -3,7 +3,6 @@
 using namespace std;
 
 int TopDown(vector<int> p, int n, vector<int> v){
-    //cout << "hi" << endl;
     //cout << n << endl;
     //cout << v[n-1] << endl;
     //cout << p[n-1] << endl;   
