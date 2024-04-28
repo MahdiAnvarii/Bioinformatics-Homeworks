@@ -28,10 +28,10 @@ void PrintLCS(vector<vector<char>> b, string s1, int x1, int x2,string current){
 
 int LCS(string s1, string s2, int x1, int x2){
     vector<vector<int>> c(x1+1, vector<int>(x2+1,0));
-    vector<vector<char>> b(x2, vector<char>(x2,'U'));
+    vector<vector<char>> b(x1, vector<char>(x2,'U'));
 
-    for (int i=1 ; i < x1+1 ; ++i){
-        for (int j=1 ; j < x2+1; ++j){
+    for (int j=1 ; j < x2+1 ; ++j){
+        for (int i=1 ; i < x1+1; ++i){
             if (s1[i-1]==s2[j-1]){
                 c[i][j] = c[i-1][j-1] + 1;
                 b[i-1][j-1] = 'D';
@@ -47,6 +47,24 @@ int LCS(string s1, string s2, int x1, int x2){
         }
     }
 
+    cout << "Your C matrix is: " << endl;
+    for (int j=1 ; j < x2+2 ; ++j){
+        for (int i=1 ; i < x1+2; ++i){
+            cout << c[i-1][j-1];
+        }
+        cout << endl;
+    }
+    cout << "================================" << endl;
+
+    cout << "Your B matrix is: " << endl;
+    for (int j=1 ; j < x2+1 ; ++j){
+        for (int i=1 ; i < x1+1; ++i){
+            cout << b[i-1][j-1];
+        }
+        cout << endl;
+    }
+    cout << "================================" << endl;
+
     PrintLCS(b,s1,x1,x2,"");
     return c[x1][x2];
 }
@@ -58,7 +76,8 @@ int main(){
     string seq2;
     cout << "Enter your second sequence: " << endl;
     cin >> seq2;
-
+    cout << "================================" << endl;
+    
     int x1;
     int x2;
     x1 = seq1.size();
@@ -67,9 +86,13 @@ int main(){
     int answer;
     answer = LCS(seq1,seq2,x1,x2);
     cout << "Your LCSs length is: " << answer << endl;
-    cout << "You have " << globalset.size() << " LCSs." << endl;
     cout << "These are your LCSs: " << endl;
+    string str;
     for (auto itr = globalset.begin() ; itr != globalset.end() ; itr++){
-        cout << *itr << endl;
+        str = *itr;
+        for (int i=str.length() ; i >= 0 ; i--){
+            cout << str[i];
+        }
+        cout << endl;
     }
 }
